@@ -1,5 +1,6 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import '../styles.css'
@@ -25,6 +26,7 @@ function RootComponent() {
           },
         ]}
       />
+      <ReactQueryDevtools buttonPosition="bottom-left" />
     </>
   )
 }
