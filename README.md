@@ -2,7 +2,7 @@
 
 A job listings app built with React and TypeScript. Fetches job postings from a public API and lets users search, filter, and sort results.
 
-**[Live Demo](https://)**
+**[Live Demo](https://dt-job-listing.netlify.app/)**
 
 ## Tech Stack
 
