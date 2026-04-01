@@ -22,12 +22,7 @@ export async function getJobs(params: GetJobsParams = {}): Promise<Job[]> {
   url.searchParams.set('sortBy', 'publishedAt')
   url.searchParams.set('order', params.sortOrder ?? 'desc')
 
-  const response = await fetch(url.toString(), {
-    method: 'GET',
-    headers: {
-      'content-type': 'application/json',
-    },
-  })
+  const response = await fetch(url.toString())
 
   if (response.status === 404) {
     return []
@@ -44,12 +39,7 @@ export async function getJobs(params: GetJobsParams = {}): Promise<Job[]> {
  * Fetches a single job by id for the details page.
  */
 export async function getJobById(jobId: string): Promise<Job> {
-  const response = await fetch(`${JOBS_API_URL}/${jobId}`, {
-    method: 'GET',
-    headers: {
-      'content-type': 'application/json',
-    },
-  })
+  const response = await fetch(`${JOBS_API_URL}/${jobId}`)
 
   if (!response.ok) {
     throw new Error('Failed to fetch job details')
