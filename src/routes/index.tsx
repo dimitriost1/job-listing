@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   Alert,
+  Avatar,
   Box,
   Checkbox,
+  Chip,
   CircularProgress,
   FormControl,
   FormControlLabel,
@@ -23,6 +25,15 @@ import type { SortOrder } from '@/types/job'
 export const Route = createFileRoute('/')({ component: JobListPage })
 
 const PAGE_SIZE = 10
+
+function getInitials(name: string) {
+  return name
+    .split(' ')
+    .map((w) => w[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2)
+}
 
 function JobListPage() {
   const [search, setSearch] = useState('')
@@ -149,10 +160,37 @@ function JobListPage() {
                   },
                 }}
               >
-                <Typography fontWeight="bold">{job.title}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {job.company} · {job.department}
-                </Typography>
+                <Stack direction="row" spacing={2} alignItems="center">
+                  <Avatar
+                    src={job.companyAvatar}
+                    alt={job.company}
+                    sx={{ width: 44, height: 44, fontSize: 14 }}
+                  >
+                    {getInitials(job.company)}
+                  </Avatar>
+
+                  <Box sx={{ flex: 1, minWidth: 0 }}>
+                    <Stack
+                      direction="row"
+                      spacing={1}
+                      alignItems="center"
+                      flexWrap="wrap"
+                    >
+                      <Typography fontWeight="bold">{job.title}</Typography>
+                      {job.isActiveRecruiting && (
+                        <Chip
+                          label="Hiring"
+                          size="small"
+                          color="primary"
+                          variant="outlined"
+                        />
+                      )}
+                    </Stack>
+                    <Typography variant="body2" color="text.secondary">
+                      {job.company} · {job.department} · {job.jobType}
+                    </Typography>
+                  </Box>
+                </Stack>
               </Paper>
             </Link>
           ))}
