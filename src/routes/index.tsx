@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   Alert,
   Box,
@@ -131,12 +131,30 @@ function JobListPage() {
       {!isLoading && !isError && visibleJobs.length > 0 && (
         <Stack spacing={2}>
           {visibleJobs.map((job) => (
-            <Paper key={job.id} variant="outlined" sx={{ p: 2 }}>
-              <Typography fontWeight="bold">{job.title}</Typography>
-              <Typography variant="body2" color="text.secondary">
-                {job.company} · {job.department}
-              </Typography>
-            </Paper>
+            <Link
+              key={job.id}
+              to="/jobs/$jobId"
+              params={{ jobId: job.id }}
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <Paper
+                variant="outlined"
+                sx={{
+                  p: 2,
+                  cursor: 'pointer',
+                  transition: 'border-color 0.2s, box-shadow 0.2s',
+                  '&:hover': {
+                    borderColor: 'primary.main',
+                    boxShadow: 1,
+                  },
+                }}
+              >
+                <Typography fontWeight="bold">{job.title}</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {job.company} · {job.department}
+                </Typography>
+              </Paper>
+            </Link>
           ))}
         </Stack>
       )}
