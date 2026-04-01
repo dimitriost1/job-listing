@@ -29,6 +29,10 @@ export async function getJobs(params: GetJobsParams = {}): Promise<Job[]> {
     },
   })
 
+  if (response.status === 404) {
+    return []
+  }
+
   if (!response.ok) {
     throw new Error('Failed to fetch jobs')
   }
